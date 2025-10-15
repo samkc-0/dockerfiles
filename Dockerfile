@@ -1,7 +1,9 @@
-# use a lightweight debian os
-# as the base image
 FROM debian:stable-slim
 
-# execute the 'echo "hello world"'
-# command when the container runs
-CMD ["echo", "hello world"]
+# COPY src dst
+COPY dockerfiles /bin/dockerfiles
+
+ENV PORT=8010
+
+# start the server
+CMD ["/bin/dockerfiles"]

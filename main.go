@@ -4,19 +4,24 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"time"
 )
 
 func main() {
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", handlerPage)
 	srv := &http.Server{
-		Addr:         ":8899",
+		Addr:         ":" + port,
 		Handler:      mux,
 		WriteTimeout: 30 * time.Second,
 		ReadTimeout:  30 * time.Second,
 	}
-	fmt.Println("starting server on port 8899")
+	fmt.Println("starting server on port " + port)
 	err := srv.ListenAndServe()
 	log.Fatal(err)
 }
